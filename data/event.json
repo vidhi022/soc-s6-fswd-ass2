@@ -1,0 +1,78 @@
+{
+  "college": {
+    "name": "Silver Oak University",
+    "shortName": "SOU",
+    "tagline": "Gyanam Parmam Bhushanam — Knowledge is the Highest Virtue",
+    "website": "https://silveroakuni.ac.in/",
+    "logo": "https://silveroakuni.ac.in/assets/images/logo/sou-l.svg",
+    "address": "352/353, 370/371, Gota Gam, Ahmedabad, Gujarat 382481",
+    "email": "info@silveroakuni.ac.in",
+    "phone": "079-35201300 / +91 9099063464",
+    "primaryColor": "#1a365d",
+    "secondaryColor": "#c4960c"
+  },
+  "event": {
+    "title": "Aavisakar 2026",
+    "tagline": "Innovate. Create. Elevate.",
+    "date": "April 18–19, 2026",
+    "eventDate": "2026-04-18T09:00:00",
+    "time": "9:00 AM – 6:00 PM",
+    "venue": "Silver Oak University, Main Campus, Ahmedabad",
+    "description": "Aavisakar is Silver Oak University's flagship annual innovation and technology festival. Featuring 24-hour hackathons, hands-on workshops, keynote talks by industry leaders, cultural showcases, and exciting competitions — two days of creativity, learning, and celebration for 25,000+ students across 17 colleges.",
+    "registrationUrl": "#register"
+  },
+  "highlights": [
+    {
+      "icon": "🚀",
+      "title": "24-Hour Hackathon",
+      "description": "Build innovative solutions to real-world problems. Open to all branches. Prizes worth ₹2,00,000 powered by SOU's Incubation Center."
+    },
+    {
+      "icon": "🎓",
+      "title": "30+ Workshops",
+      "description": "Hands-on sessions on AI, Blockchain, Cloud Computing, IoT, Robotics, and Full-Stack Development led by industry experts and SOU faculty."
+    },
+    {
+      "icon": "🎭",
+      "title": "Rangmanch & Cultural Fest",
+      "description": "Theatre, dance, Raas Rasiya, fashion show, and live performances celebrating the vibrant cultural spirit of Silver Oak University."
+    }
+  ],
+  "schedule": [
+    { "time": "9:00 AM", "title": "Registration & Welcome Kit", "speaker": "", "type": "general" },
+    { "time": "9:30 AM", "title": "Inaugural Ceremony & Lamp Lighting", "speaker": "Dr. C.G. Patel, Vice Chancellor, SOU", "type": "ceremony" },
+    { "time": "10:30 AM", "title": "Keynote: AI and the Future of Education", "speaker": "Dr. Anita Gupta, DST – Govt. of India", "type": "talk" },
+    { "time": "12:00 PM", "title": "Lunch & Campus Tour", "speaker": "", "type": "break" },
+    { "time": "1:00 PM", "title": "Workshop: Build a Full-Stack Web App in 2 Hours", "speaker": "Prof. Meera Shah, SOCT", "type": "workshop" },
+    { "time": "1:00 PM", "title": "Hackathon Kickoff — 24-Hour Sprint", "speaker": "SOU Incubation Center", "type": "competition" },
+    { "time": "3:30 PM", "title": "Panel: From Campus to Startup", "speaker": "SOU Alumni Founders Panel", "type": "talk" },
+    { "time": "5:00 PM", "title": "Rangmanch — Theatre & Cultural Performances", "speaker": "Student Cultural Council", "type": "general" },
+    { "time": "6:00 PM", "title": "Day 1 Wrap-up & Raas Rasiya Night", "speaker": "", "type": "general" }
+  ],
+  "speakers": [
+    {
+      "name": "Dr. C.G. Patel",
+      "role": "Vice Chancellor, Silver Oak University",
+      "bio": "Visionary academic leader driving SOU's mission of holistic development (Sarwangi Vikas) across 17 colleges and 150+ courses.",
+      "image": "👨‍🏫"
+    },
+    {
+      "name": "Dr. Anita Gupta",
+      "role": "Advisor, Dept. of Science & Technology",
+      "bio": "Leading India's innovation ecosystem with 20+ years in science policy, startup mentoring, and deep-tech funding at DST.",
+      "image": "👩‍🔬"
+    },
+    {
+      "name": "Prof. Meera Shah",
+      "role": "HOD, Computer Science, SOCT",
+      "bio": "Full-stack developer and educator specializing in modern web technologies. IEEE Silver Oak Student Branch mentor.",
+      "image": "👩‍💻"
+    },
+    {
+      "name": "Raj Kothari",
+      "role": "SOU Alumnus & Startup Founder",
+      "bio": "Built a ₹10Cr EdTech startup after graduating from Silver Oak's Stipend-Based Internship Program. TEDx speaker.",
+      "image": "👨‍💻"
+    }
+  ]
+}
