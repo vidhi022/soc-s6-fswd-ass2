@@ -38,17 +38,37 @@
       "description": "Theatre, dance, Raas Rasiya, fashion show, and live performances celebrating the vibrant cultural spirit of Silver Oak University."
     }
   ],
-  "schedule": [
-    { "time": "9:00 AM", "title": "Registration & Welcome Kit", "speaker": "", "type": "general" },
-    { "time": "9:30 AM", "title": "Inaugural Ceremony & Lamp Lighting", "speaker": "Dr. C.G. Patel, Vice Chancellor, SOU", "type": "ceremony" },
-    { "time": "10:30 AM", "title": "Keynote: AI and the Future of Education", "speaker": "Dr. Anita Gupta, DST – Govt. of India", "type": "talk" },
-    { "time": "12:00 PM", "title": "Lunch & Campus Tour", "speaker": "", "type": "break" },
-    { "time": "1:00 PM", "title": "Workshop: Build a Full-Stack Web App in 2 Hours", "speaker": "Prof. Meera Shah, SOCT", "type": "workshop" },
-    { "time": "1:00 PM", "title": "Hackathon Kickoff — 24-Hour Sprint", "speaker": "SOU Incubation Center", "type": "competition" },
-    { "time": "3:30 PM", "title": "Panel: From Campus to Startup", "speaker": "SOU Alumni Founders Panel", "type": "talk" },
-    { "time": "5:00 PM", "title": "Rangmanch — Theatre & Cultural Performances", "speaker": "Student Cultural Council", "type": "general" },
-    { "time": "6:00 PM", "title": "Day 1 Wrap-up & Raas Rasiya Night", "speaker": "", "type": "general" }
-  ],
+  "schedule": {
+    "days": [
+      {
+        "label": "Day 1 — April 18",
+        "sessions": [
+          { "time": "9:00 AM", "title": "Registration & Welcome Kit", "speaker": "", "type": "general" },
+          { "time": "9:30 AM", "title": "Inaugural Ceremony & Lamp Lighting", "speaker": "Dr. C.G. Patel, Vice Chancellor, SOU", "type": "ceremony" },
+          { "time": "10:30 AM", "title": "Keynote: AI and the Future of Education", "speaker": "Dr. Anita Gupta, DST – Govt. of India", "type": "talk" },
+          { "time": "12:00 PM", "title": "Lunch & Campus Tour", "speaker": "", "type": "break" },
+          { "time": "1:00 PM", "title": "Workshop: Build a Full-Stack Web App in 2 Hours", "speaker": "Prof. Meera Shah, SOCT", "type": "workshop" },
+          { "time": "1:00 PM", "title": "Hackathon Kickoff — 24-Hour Sprint", "speaker": "SOU Incubation Center", "type": "competition" },
+          { "time": "3:30 PM", "title": "Panel: From Campus to Startup", "speaker": "SOU Alumni Founders Panel", "type": "talk" },
+          { "time": "5:00 PM", "title": "Rangmanch — Theatre & Cultural Performances", "speaker": "Student Cultural Council", "type": "general" },
+          { "time": "6:00 PM", "title": "Day 1 Wrap-up & Raas Rasiya Night", "speaker": "", "type": "general" }
+        ]
+      },
+      {
+        "label": "Day 2 — April 19",
+        "sessions": [
+          { "time": "9:00 AM", "title": "Day 2 Check-in & Hackathon Progress Review", "speaker": "SOU Incubation Center", "type": "competition" },
+          { "time": "10:00 AM", "title": "Workshop: Introduction to Cloud & DevOps", "speaker": "Industry Expert Panel", "type": "workshop" },
+          { "time": "11:30 AM", "title": "Keynote: Building India's Deep-Tech Future", "speaker": "Dr. Anita Gupta, DST – Govt. of India", "type": "talk" },
+          { "time": "12:30 PM", "title": "Lunch Break", "speaker": "", "type": "break" },
+          { "time": "1:30 PM", "title": "Hackathon Final Submissions & Demos", "speaker": "SOU Incubation Center", "type": "competition" },
+          { "time": "3:00 PM", "title": "Innovation Showcase & Project Exhibition", "speaker": "Student Teams", "type": "general" },
+          { "time": "4:30 PM", "title": "Awards Ceremony & Valedictory", "speaker": "Dr. C.G. Patel, Vice Chancellor, SOU", "type": "ceremony" },
+          { "time": "5:30 PM", "title": "Closing Celebration & Group Photo", "speaker": "", "type": "general" }
+        ]
+      }
+    ]
+  },
   "speakers": [
     {
       "name": "Dr. C.G. Patel",

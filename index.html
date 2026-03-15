@@ -53,9 +53,47 @@
 
     /* Active nav link */
     .nav-active {
-      color: #f59e0b !important;
-      border-bottom: 2px solid #f59e0b;
+      color: #d97706 !important;
+      border-bottom: 2px solid #d97706;
       padding-bottom: 2px;
+    }
+
+    /* Schedule tab styles */
+    .schedule-tab {
+      padding: 0.5rem 1.5rem;
+      font-weight: 600;
+      font-size: 0.875rem;
+      border-radius: 9999px;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 2px solid #e5e7eb;
+      background: white;
+      color: #6b7280;
+    }
+    .schedule-tab:hover { border-color: #d97706; color: #d97706; }
+    .schedule-tab.active { background: #d97706; color: white; border-color: #d97706; }
+
+    /* Timeline styles */
+    .timeline-item { position: relative; padding-left: 2.5rem; padding-bottom: 1.5rem; }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 0.55rem;
+      top: 1.5rem;
+      bottom: 0;
+      width: 2px;
+      background: #e5e7eb;
+    }
+    .timeline-item:last-child::before { display: none; }
+    .timeline-dot {
+      position: absolute;
+      left: 0;
+      top: 0.35rem;
+      width: 1.25rem;
+      height: 1.25rem;
+      border-radius: 9999px;
+      border: 3px solid white;
+      box-shadow: 0 0 0 2px #e5e7eb;
     }
 
     /* Reduce motion */
@@ -68,29 +106,29 @@
 <body class="bg-gray-50 text-gray-800 font-sans">
 
   <!-- Navbar -->
-  <nav id="navbar" class="bg-slate-800 text-white sticky top-0 z-50 shadow-lg">
+  <nav id="navbar" class="bg-white text-gray-700 sticky top-0 z-50 shadow-sm border-b border-gray-200">
     <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
       <a href="#" id="nav-logo" class="font-bold flex items-center">
         <span id="nav-logo-icon">🎓</span>
       </a>
       <!-- Mobile hamburger -->
-      <button id="menu-toggle" class="md:hidden text-2xl focus:outline-none" aria-label="Toggle menu">☰</button>
+      <button id="menu-toggle" class="md:hidden text-2xl focus:outline-none text-gray-700" aria-label="Toggle menu">☰</button>
       <!-- Nav links -->
       <ul id="nav-links" class="hidden md:flex gap-6 text-sm font-medium">
-        <li><a href="#hero" data-section="hero" class="hover:text-amber-400 transition">Home</a></li>
-        <li><a href="#highlights" data-section="highlights" class="hover:text-amber-400 transition">Highlights</a></li>
-        <li><a href="#schedule" data-section="schedule" class="hover:text-amber-400 transition">Schedule</a></li>
-        <li><a href="#speakers" data-section="speakers" class="hover:text-amber-400 transition">Speakers</a></li>
-        <li><a href="#contact" data-section="contact" class="hover:text-amber-400 transition">Contact</a></li>
+        <li><a href="#hero" data-section="hero" class="hover:text-amber-600 transition">Home</a></li>
+        <li><a href="#highlights" data-section="highlights" class="hover:text-amber-600 transition">Highlights</a></li>
+        <li><a href="#schedule" data-section="schedule" class="hover:text-amber-600 transition">Schedule</a></li>
+        <li><a href="#speakers" data-section="speakers" class="hover:text-amber-600 transition">Speakers</a></li>
+        <li><a href="#contact" data-section="contact" class="hover:text-amber-600 transition">Contact</a></li>
       </ul>
     </div>
     <!-- Mobile menu -->
     <ul id="mobile-menu" class="hidden flex-col gap-3 px-4 pb-4 text-sm font-medium md:hidden">
-      <li><a href="#hero" class="block hover:text-amber-400 transition">Home</a></li>
-      <li><a href="#highlights" class="block hover:text-amber-400 transition">Highlights</a></li>
-      <li><a href="#schedule" class="block hover:text-amber-400 transition">Schedule</a></li>
-      <li><a href="#speakers" class="block hover:text-amber-400 transition">Speakers</a></li>
-      <li><a href="#contact" class="block hover:text-amber-400 transition">Contact</a></li>
+      <li><a href="#hero" class="block hover:text-amber-600 transition">Home</a></li>
+      <li><a href="#highlights" class="block hover:text-amber-600 transition">Highlights</a></li>
+      <li><a href="#schedule" class="block hover:text-amber-600 transition">Schedule</a></li>
+      <li><a href="#speakers" class="block hover:text-amber-600 transition">Speakers</a></li>
+      <li><a href="#contact" class="block hover:text-amber-600 transition">Contact</a></li>
     </ul>
   </nav>
 
@@ -147,8 +185,13 @@
   <section id="schedule" class="py-16 md:py-20 bg-white fade-in">
     <div class="max-w-4xl mx-auto px-4">
       <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Event Schedule</h2>
-      <p class="text-gray-500 text-center mb-12 max-w-xl mx-auto">Plan your day with our detailed timeline</p>
-      <div id="schedule-list" class="space-y-4">
+      <p class="text-gray-500 text-center mb-8 max-w-xl mx-auto">Plan your day with our detailed timeline</p>
+      <!-- Day tabs -->
+      <div id="schedule-tabs" class="flex justify-center gap-3 mb-8"></div>
+      <!-- Type legend -->
+      <div id="schedule-legend" class="flex flex-wrap justify-center gap-3 mb-8 text-xs"></div>
+      <!-- Timeline -->
+      <div id="schedule-list" class="max-w-2xl mx-auto">
       </div>
     </div>
   </section>
@@ -330,9 +373,8 @@
         }
         document.title = (event?.title || 'Event') + ' | ' + (college?.name || 'College');
 
-        // Navbar & footer color
+        // Footer color (navbar stays white for logo visibility)
         if (college?.primaryColor) {
-          document.getElementById('navbar').style.backgroundColor = college.primaryColor;
           document.getElementById('contact').style.backgroundColor = college.primaryColor;
         }
 
@@ -370,20 +412,76 @@
         });
         document.getElementById('highlights-grid').innerHTML = highlightsHTML;
 
-        // Schedule
-        var scheduleHTML = '';
-        data.schedule?.forEach(function (s) {
-          var colorClass = typeColors[s.type] || typeColors.general;
-          scheduleHTML += '<div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 bg-gray-50 rounded-lg p-4 border border-gray-100 hover:border-amber-200 hover:bg-amber-50/30 transition-all duration-200">' +
-            '<span class="text-sm font-mono font-bold text-slate-600 w-24 shrink-0">' + escapeHTML(s.time) + '</span>' +
-            '<div class="flex-1">' +
-            '<h4 class="font-semibold">' + escapeHTML(s.title) + '</h4>' +
-            (s.speaker ? '<p class="text-gray-500 text-sm">' + escapeHTML(s.speaker) + '</p>' : '') +
-            '</div>' +
-            '<span class="text-xs px-3 py-1 rounded-full font-medium ' + colorClass + '">' + escapeHTML(s.type) + '</span>' +
-            '</div>';
+        // Schedule — tab-based day switcher + vertical timeline
+        var typeDotColors = {
+          general: 'bg-gray-400',
+          ceremony: 'bg-purple-500',
+          talk: 'bg-blue-500',
+          break: 'bg-green-400',
+          workshop: 'bg-amber-500',
+          competition: 'bg-red-500'
+        };
+        var typeLegend = {
+          general: { color: 'bg-gray-400', label: 'General' },
+          ceremony: { color: 'bg-purple-500', label: 'Ceremony' },
+          talk: { color: 'bg-blue-500', label: 'Talk' },
+          break: { color: 'bg-green-400', label: 'Break' },
+          workshop: { color: 'bg-amber-500', label: 'Workshop' },
+          competition: { color: 'bg-red-500', label: 'Competition' }
+        };
+
+        var scheduleDays = data.schedule?.days || [];
+        var tabsContainer = document.getElementById('schedule-tabs');
+        var listContainer = document.getElementById('schedule-list');
+        var legendContainer = document.getElementById('schedule-legend');
+
+        // Render legend
+        var legendHTML = '';
+        Object.keys(typeLegend).forEach(function (key) {
+          legendHTML += '<span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full ' + typeLegend[key].color + '"></span>' + typeLegend[key].label + '</span>';
         });
-        document.getElementById('schedule-list').innerHTML = scheduleHTML;
+        legendContainer.innerHTML = legendHTML;
+
+        function renderDay(dayIndex) {
+          var sessions = scheduleDays[dayIndex]?.sessions || [];
+          var html = '';
+          sessions.forEach(function (s) {
+            var dotColor = typeDotColors[s.type] || typeDotColors.general;
+            var colorClass = typeColors[s.type] || typeColors.general;
+            html += '<div class="timeline-item">' +
+              '<div class="timeline-dot ' + dotColor + '"></div>' +
+              '<div class="bg-gray-50 rounded-lg p-4 border border-gray-100 hover:border-amber-200 hover:bg-amber-50/30 transition-all duration-200">' +
+              '<div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">' +
+              '<span class="text-sm font-mono font-bold text-slate-600 w-24 shrink-0">' + escapeHTML(s.time) + '</span>' +
+              '<div class="flex-1">' +
+              '<h4 class="font-semibold">' + escapeHTML(s.title) + '</h4>' +
+              (s.speaker ? '<p class="text-gray-500 text-sm">' + escapeHTML(s.speaker) + '</p>' : '') +
+              '</div>' +
+              '<span class="text-xs px-3 py-1 rounded-full font-medium ' + colorClass + ' self-start sm:self-auto">' + escapeHTML(s.type) + '</span>' +
+              '</div></div></div>';
+          });
+          listContainer.innerHTML = html;
+        }
+
+        // Render tabs
+        var tabsHTML = '';
+        scheduleDays.forEach(function (day, i) {
+          tabsHTML += '<button class="schedule-tab' + (i === 0 ? ' active' : '') + '" data-day="' + i + '">' + escapeHTML(day.label) + '</button>';
+        });
+        tabsContainer.innerHTML = tabsHTML;
+
+        // Tab click handler
+        tabsContainer.addEventListener('click', function (e) {
+          var btn = e.target.closest('.schedule-tab');
+          if (!btn) return;
+          var dayIdx = parseInt(btn.dataset.day);
+          tabsContainer.querySelectorAll('.schedule-tab').forEach(function (t) { t.classList.remove('active'); });
+          btn.classList.add('active');
+          renderDay(dayIdx);
+        });
+
+        // Render first day
+        if (scheduleDays.length > 0) renderDay(0);
 
         // Speakers
         var speakersHTML = '';
