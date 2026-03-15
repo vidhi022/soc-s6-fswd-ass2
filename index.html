@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>College Event Landing Page</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html { scroll-behavior: smooth; }
+
+    /* Scroll fade-in animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Countdown flip style */
+    .countdown-box {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(4px);
+      border-radius: 0.75rem;
+      padding: 0.75rem 1rem;
+      text-align: center;
+    }
+    .countdown-box .num {
+      font-size: 1.75rem;
+      font-weight: 800;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+    .countdown-box .label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.7;
+      margin-top: 0.25rem;
+    }
+
+    /* Back to top button */
+    #back-to-top {
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    #back-to-top.hidden-btn {
+      opacity: 0;
+      transform: translateY(20px);
+      pointer-events: none;
+    }
+
+    /* Active nav link */
+    .nav-active {
+      color: #f59e0b !important;
+      border-bottom: 2px solid #f59e0b;
+      padding-bottom: 2px;
+    }
+
+    /* Reduce motion */
+    @media (prefers-reduced-motion: reduce) {
+      .fade-in { opacity: 1; transform: none; transition: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+  <!-- Navbar -->
+  <nav id="navbar" class="bg-slate-800 text-white sticky top-0 z-50 shadow-lg">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="#" id="nav-logo" class="text-xl font-bold flex items-center gap-2">
+        <span id="nav-logo-icon">🎓</span>
+        <span id="nav-college-name">College Event</span>
+      </a>
+      <!-- Mobile hamburger -->
+      <button id="menu-toggle" class="md:hidden text-2xl focus:outline-none" aria-label="Toggle menu">☰</button>
+      <!-- Nav links -->
+      <ul id="nav-links" class="hidden md:flex gap-6 text-sm font-medium">
+        <li><a href="#hero" data-section="hero" class="hover:text-amber-400 transition">Home</a></li>
+        <li><a href="#highlights" data-section="highlights" class="hover:text-amber-400 transition">Highlights</a></li>
+        <li><a href="#schedule" data-section="schedule" class="hover:text-amber-400 transition">Schedule</a></li>
+        <li><a href="#speakers" data-section="speakers" class="hover:text-amber-400 transition">Speakers</a></li>
+        <li><a href="#contact" data-section="contact" class="hover:text-amber-400 transition">Contact</a></li>
+      </ul>
+    </div>
+    <!-- Mobile menu -->
+    <ul id="mobile-menu" class="hidden flex-col gap-3 px-4 pb-4 text-sm font-medium md:hidden">
+      <li><a href="#hero" class="block hover:text-amber-400 transition">Home</a></li>
+      <li><a href="#highlights" class="block hover:text-amber-400 transition">Highlights</a></li>
+      <li><a href="#schedule" class="block hover:text-amber-400 transition">Schedule</a></li>
+      <li><a href="#speakers" class="block hover:text-amber-400 transition">Speakers</a></li>
+      <li><a href="#contact" class="block hover:text-amber-400 transition">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="hero" class="bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 text-white py-24 md:py-32">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <p id="hero-tagline" class="text-amber-400 text-sm font-semibold uppercase tracking-widest mb-4"></p>
+      <h1 id="hero-title" class="text-4xl md:text-6xl font-extrabold mb-4"></h1>
+      <p id="hero-event-tagline" class="text-xl md:text-2xl text-amber-300 font-medium mb-6"></p>
+      <p id="hero-description" class="text-base md:text-lg text-gray-300 mb-8 max-w-2xl mx-auto"></p>
+
+      <!-- Countdown Timer -->
+      <div id="countdown" class="grid grid-cols-4 gap-3 max-w-xs sm:max-w-sm mx-auto mb-8">
+        <div class="countdown-box">
+          <div class="num" id="cd-days">--</div>
+          <div class="label">Days</div>
+        </div>
+        <div class="countdown-box">
+          <div class="num" id="cd-hours">--</div>
+          <div class="label">Hours</div>
+        </div>
+        <div class="countdown-box">
+          <div class="num" id="cd-mins">--</div>
+          <div class="label">Minutes</div>
+        </div>
+        <div class="countdown-box">
+          <div class="num" id="cd-secs">--</div>
+          <div class="label">Seconds</div>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center text-sm">
+        <span id="hero-date" class="bg-white/10 px-4 py-2 rounded-full">📅 </span>
+        <span id="hero-time" class="bg-white/10 px-4 py-2 rounded-full">🕐 </span>
+        <span id="hero-venue" class="bg-white/10 px-4 py-2 rounded-full">📍 </span>
+      </div>
+      <a id="hero-cta" href="#" class="inline-block mt-8 bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold px-8 py-3 rounded-lg text-lg transition shadow-lg hover:shadow-xl hover:scale-105 transform">
+        Register Now →
+      </a>
+    </div>
+  </section>
+
+  <!-- Highlights Section -->
+  <section id="highlights" class="py-16 md:py-20 fade-in">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Event Highlights</h2>
+      <p class="text-gray-500 text-center mb-12 max-w-xl mx-auto">Discover what makes Aavisakar special</p>
+      <div id="highlights-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      </div>
+    </div>
+  </section>
+
+  <!-- Schedule Section -->
+  <section id="schedule" class="py-16 md:py-20 bg-white fade-in">
+    <div class="max-w-4xl mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Event Schedule</h2>
+      <p class="text-gray-500 text-center mb-12 max-w-xl mx-auto">Plan your day with our detailed timeline</p>
+      <div id="schedule-list" class="space-y-4">
+      </div>
+    </div>
+  </section>
+
+  <!-- Speakers Section -->
+  <section id="speakers" class="py-16 md:py-20 fade-in">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Featured Speakers</h2>
+      <p class="text-gray-500 text-center mb-12 max-w-xl mx-auto">Learn from the best in the industry</p>
+      <div id="speakers-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact / Footer Section -->
+  <section id="contact" class="bg-slate-800 text-white py-16">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div>
+          <h3 id="footer-college" class="text-xl font-bold mb-3"></h3>
+          <p id="footer-tagline" class="text-gray-400 text-sm"></p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-3">Contact Us</h3>
+          <p id="footer-email" class="text-gray-400 text-sm mb-1"></p>
+          <p id="footer-phone" class="text-gray-400 text-sm mb-1"></p>
+          <p id="footer-address" class="text-gray-400 text-sm"></p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-3">Quick Links</h3>
+          <ul class="text-gray-400 text-sm space-y-2">
+            <li><a href="#hero" class="hover:text-amber-400 transition">Home</a></li>
+            <li><a href="#highlights" class="hover:text-amber-400 transition">Highlights</a></li>
+            <li><a href="#schedule" class="hover:text-amber-400 transition">Schedule</a></li>
+            <li><a href="#speakers" class="hover:text-amber-400 transition">Speakers</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-slate-700 mt-10 pt-6 text-center text-gray-500 text-sm">
+        <p id="footer-copyright"></p>
+        <p class="mt-1">
+          <a id="footer-website" href="#" class="hover:text-amber-400 transition" target="_blank" rel="noopener"></a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Back to Top Button -->
+  <button id="back-to-top" class="hidden-btn fixed bottom-6 right-6 bg-amber-500 hover:bg-amber-600 text-slate-900 w-12 h-12 rounded-full shadow-lg flex items-center justify-center text-xl font-bold z-50" aria-label="Back to top">
+    ↑
+  </button>
+
+  <script>
+    // ── Mobile nav toggle ──
+    document.getElementById('menu-toggle').addEventListener('click', function () {
+      document.getElementById('mobile-menu').classList.toggle('hidden');
+      document.getElementById('mobile-menu').classList.toggle('flex');
+    });
+    document.querySelectorAll('#mobile-menu a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        document.getElementById('mobile-menu').classList.add('hidden');
+        document.getElementById('mobile-menu').classList.remove('flex');
+      });
+    });
+
+    // ── Scroll fade-in animations (IntersectionObserver) ──
+    var fadeEls = document.querySelectorAll('.fade-in');
+    if ('IntersectionObserver' in window) {
+      var fadeObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.15 });
+      fadeEls.forEach(function (el) { fadeObserver.observe(el); });
+    } else {
+      fadeEls.forEach(function (el) { el.classList.add('visible'); });
+    }
+
+    // ── Active nav highlighting ──
+    var sections = document.querySelectorAll('section[id]');
+    var navLinks = document.querySelectorAll('#nav-links a[data-section]');
+    if ('IntersectionObserver' in window) {
+      var navObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          var id = entry.target.id;
+          var link = document.querySelector('#nav-links a[data-section="' + id + '"]');
+          if (link) {
+            if (entry.isIntersecting) {
+              navLinks.forEach(function (l) { l.classList.remove('nav-active'); });
+              link.classList.add('nav-active');
+            }
+          }
+        });
+      }, { threshold: 0.3 });
+      sections.forEach(function (sec) { navObserver.observe(sec); });
+    }
+
+    // ── Back to top button ──
+    var backBtn = document.getElementById('back-to-top');
+    window.addEventListener('scroll', function () {
+      if (window.scrollY > 500) {
+        backBtn.classList.remove('hidden-btn');
+      } else {
+        backBtn.classList.add('hidden-btn');
+      }
+    });
+    backBtn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // ── Type badge colors ──
+    var typeColors = {
+      general: 'bg-gray-100 text-gray-700',
+      ceremony: 'bg-purple-100 text-purple-700',
+      talk: 'bg-blue-100 text-blue-700',
+      break: 'bg-green-100 text-green-700',
+      workshop: 'bg-amber-100 text-amber-700',
+      competition: 'bg-red-100 text-red-700'
+    };
+
+    // ── Countdown timer ──
+    var countdownInterval = null;
+    function startCountdown(eventDateStr) {
+      var target = new Date(eventDateStr);
+      if (isNaN(target.getTime())) {
+        document.getElementById('countdown').style.display = 'none';
+        return;
+      }
+      function update() {
+        var now = new Date();
+        var diff = target - now;
+        if (diff <= 0) {
+          clearInterval(countdownInterval);
+          document.getElementById('countdown').innerHTML =
+            '<div class="countdown-box" style="min-width:auto;padding:1rem 2rem;">' +
+            '<div class="num text-amber-400" style="font-size:1.5rem;">🎉 Event is Live!</div></div>';
+          return;
+        }
+        var d = Math.floor(diff / 86400000);
+        var h = Math.floor((diff % 86400000) / 3600000);
+        var m = Math.floor((diff % 3600000) / 60000);
+        var s = Math.floor((diff % 60000) / 1000);
+        document.getElementById('cd-days').textContent = d < 10 ? '0' + d : d;
+        document.getElementById('cd-hours').textContent = h < 10 ? '0' + h : h;
+        document.getElementById('cd-mins').textContent = m < 10 ? '0' + m : m;
+        document.getElementById('cd-secs').textContent = s < 10 ? '0' + s : s;
+      }
+      update();
+      countdownInterval = setInterval(update, 1000);
+    }
+
+    // ── HTML escape ──
+    function escapeHTML(str) {
+      if (!str) return '';
+      var div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    // ── Fetch and render ──
+    fetch('data/event.json')
+      .then(function (res) { return res.json(); })
+      .then(function (data) {
+        var college = data.college;
+        var event = data.event;
+
+        // Navbar — logo as image or emoji
+        var logoEl = document.getElementById('nav-logo-icon');
+        if (college?.logo && college.logo.startsWith('http')) {
+          var img = document.createElement('img');
+          img.src = college.logo;
+          img.alt = college.name || 'Logo';
+          img.className = 'h-8 w-auto';
+          img.style.filter = 'brightness(0) invert(1)';
+          logoEl.replaceWith(img);
+        } else {
+          logoEl.textContent = college?.logo || '🎓';
+        }
+        document.getElementById('nav-college-name').textContent = college?.name || 'College Event';
+        document.title = (event?.title || 'Event') + ' | ' + (college?.name || 'College');
+
+        // Navbar & footer color
+        if (college?.primaryColor) {
+          document.getElementById('navbar').style.backgroundColor = college.primaryColor;
+          document.getElementById('contact').style.backgroundColor = college.primaryColor;
+        }
+
+        // Hero
+        document.getElementById('hero-tagline').textContent = college?.tagline || '';
+        document.getElementById('hero-title').textContent = event?.title || 'Event';
+        document.getElementById('hero-event-tagline').textContent = event?.tagline || '';
+        document.getElementById('hero-description').textContent = event?.description || '';
+        document.getElementById('hero-date').textContent = '📅 ' + (event?.date || 'TBA');
+        document.getElementById('hero-time').textContent = '🕐 ' + (event?.time || 'TBA');
+        document.getElementById('hero-venue').textContent = '📍 ' + (event?.venue || 'TBA');
+        document.getElementById('hero-cta').href = event?.registrationUrl || '#';
+
+        // Hero gradient
+        if (college?.primaryColor) {
+          document.getElementById('hero').style.background =
+            'linear-gradient(135deg, ' + college.primaryColor + ', ' + college.primaryColor + 'cc, ' + college.primaryColor + '99)';
+        }
+
+        // Start countdown
+        if (event?.eventDate) {
+          startCountdown(event.eventDate);
+        } else {
+          document.getElementById('countdown').style.display = 'none';
+        }
+
+        // Highlights
+        var highlightsHTML = '';
+        data.highlights?.forEach(function (h) {
+          highlightsHTML += '<div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-center">' +
+            '<div class="text-4xl mb-4">' + (h.icon || '⭐') + '</div>' +
+            '<h3 class="text-xl font-bold mb-2">' + escapeHTML(h.title) + '</h3>' +
+            '<p class="text-gray-500 text-sm">' + escapeHTML(h.description) + '</p>' +
+            '</div>';
+        });
+        document.getElementById('highlights-grid').innerHTML = highlightsHTML;
+
+        // Schedule
+        var scheduleHTML = '';
+        data.schedule?.forEach(function (s) {
+          var colorClass = typeColors[s.type] || typeColors.general;
+          scheduleHTML += '<div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 bg-gray-50 rounded-lg p-4 border border-gray-100 hover:border-amber-200 hover:bg-amber-50/30 transition-all duration-200">' +
+            '<span class="text-sm font-mono font-bold text-slate-600 w-24 shrink-0">' + escapeHTML(s.time) + '</span>' +
+            '<div class="flex-1">' +
+            '<h4 class="font-semibold">' + escapeHTML(s.title) + '</h4>' +
+            (s.speaker ? '<p class="text-gray-500 text-sm">' + escapeHTML(s.speaker) + '</p>' : '') +
+            '</div>' +
+            '<span class="text-xs px-3 py-1 rounded-full font-medium ' + colorClass + '">' + escapeHTML(s.type) + '</span>' +
+            '</div>';
+        });
+        document.getElementById('schedule-list').innerHTML = scheduleHTML;
+
+        // Speakers
+        var speakersHTML = '';
+        data.speakers?.forEach(function (s) {
+          speakersHTML += '<div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-center">' +
+            '<div class="text-5xl mb-4">' + (s.image || '👤') + '</div>' +
+            '<h3 class="text-lg font-bold">' + escapeHTML(s.name) + '</h3>' +
+            '<p class="text-amber-600 text-sm font-medium mb-2">' + escapeHTML(s.role) + '</p>' +
+            '<p class="text-gray-500 text-sm">' + escapeHTML(s.bio) + '</p>' +
+            '</div>';
+        });
+        document.getElementById('speakers-grid').innerHTML = speakersHTML;
+
+        // Footer
+        document.getElementById('footer-college').textContent = college?.name || '';
+        document.getElementById('footer-tagline').textContent = college?.tagline || '';
+        document.getElementById('footer-email').textContent = '📧 ' + (college?.email || '');
+        document.getElementById('footer-phone').textContent = '📞 ' + (college?.phone || '');
+        document.getElementById('footer-address').textContent = '📍 ' + (college?.address || '');
+        document.getElementById('footer-copyright').textContent = '© 2026 ' + (college?.name || '') + '. All rights reserved.';
+        document.getElementById('footer-website').textContent = 'Visit ' + (college?.name || 'our website');
+        document.getElementById('footer-website').href = college?.website || '#';
+      })
+      .catch(function (err) {
+        console.error('Failed to load event data:', err);
+      });
+  </script>
+
+</body>
+</html>
