@@ -69,10 +69,9 @@
 
   <!-- Navbar -->
   <nav id="navbar" class="bg-slate-800 text-white sticky top-0 z-50 shadow-lg">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-      <a href="#" id="nav-logo" class="text-xl font-bold flex items-center gap-2">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="#" id="nav-logo" class="font-bold flex items-center">
         <span id="nav-logo-icon">🎓</span>
-        <span id="nav-college-name">College Event</span>
       </a>
       <!-- Mobile hamburger -->
       <button id="menu-toggle" class="md:hidden text-2xl focus:outline-none" aria-label="Toggle menu">☰</button>
@@ -324,13 +323,11 @@
           var img = document.createElement('img');
           img.src = college.logo;
           img.alt = college.name || 'Logo';
-          img.className = 'h-8 w-auto';
-          img.style.filter = 'brightness(0) invert(1)';
+          img.className = 'h-12 w-auto';
           logoEl.replaceWith(img);
         } else {
           logoEl.textContent = college?.logo || '🎓';
         }
-        document.getElementById('nav-college-name').textContent = college?.name || 'College Event';
         document.title = (event?.title || 'Event') + ' | ' + (college?.name || 'College');
 
         // Navbar & footer color
